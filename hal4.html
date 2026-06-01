@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malam Keakraban - Galeri Kenangan</title>
+    <!-- Font modern dan bersih dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0d0d0d;        
+            --surface-color: #151515;   
+            --text-primary: #ededed;    
+            --text-secondary: #888888;  
+            --accent-color: #A67C52;    
+            --border-color: #262626;    
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- NAVIGASI KEMBALI --- */
+        nav {
+            padding: 40px 24px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
+        /* --- BAGIAN ATAS (DESKRIPSI & GDRIVE) --- */
+        header {
+            text-align: center;
+            padding: 6vh 20px 8vh;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .album-date {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        header h1 {
+            font-family: 'Lora', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        /* Tombol Google Drive */
+        .gdrive-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--accent-color);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .gdrive-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(166, 124, 82, 0.15);
+        }
+
+        /* Ikon GDrive Sederhana */
+        .gdrive-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* --- GALERI FOTO --- */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+
+        .photo-item {
+            aspect-ratio: 1 / 1; /* Kotak sempurna */
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            cursor: pointer;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.03);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            z-index: 2;
+        }
+        /* 1. Mengatur Wadah Utama Galeri (Grid System) */
+.photo-grid {
+    display: grid;
+    /* Membuat kolom otomatis. Minimal lebar 200px, maksimal mengisi sisa ruang */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 16px; /* Jarak antar foto */
+    padding: 20px 0; /* Jarak atas-bawah galeri */
+}
+
+/* 2. Mengatur Bingkai Setiap Foto */
+.photo-item {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Memaksa bingkai menjadi persegi (kotak sempurna) */
+    border-radius: 8px; /* Ujung agak melengkung (opsional) */
+    overflow: hidden; /* Mencegah gambar keluar dari bingkai */
+    background-color: #1a1a1a; /* Warna latar untuk kotak yang belum ada fotonya */
+}
+
+/* 3. Mengatur Gambar Agar Pas dan Fokusnya Benar */
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Biar gambar penuh tidak gepeng */
+    
+    /* Menerapkan solusi sebelumnya: Fokus ke bagian atas/wajah */
+    object-position: top; 
+}
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        /* --- ELEMEN DEKORASI (Dari Beranda) --- */
+        .bg-decorations {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .float-item {
+            position: absolute;
+            bottom: -50px;
+            opacity: 0.05;
+            font-size: 24px;
+            animation: floatUp 20s linear infinite;
+            filter: grayscale(100%) sepia(100%) hue-rotate(330deg);
+        }
+
+        .float-item:nth-child(1) { left: 15%; animation-duration: 22s; font-size: 28px; }
+        .float-item:nth-child(2) { left: 35%; animation-duration: 19s; animation-delay: 3s; }
+        .float-item:nth-child(3) { left: 60%; animation-duration: 26s; animation-delay: 1s; font-size: 35px; }
+        .float-item:nth-child(4) { left: 85%; animation-duration: 24s; animation-delay: 6s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.08; }
+            90% { opacity: 0.08; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Kucing Mengintip */
+        .peeking-cat {
+            position: fixed;
+            bottom: -20px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            z-index: 10;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .peeking-cat:hover {
+            transform: translateY(-20px);
+        }
+
+        .cat-eyes {
+            transform-origin: center;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0%, 95%, 100% { transform: scaleY(1); }
+            97% { transform: scaleY(0.1); }
+        }
+
+        .cat-tail {
+            transform-origin: 80% 80%;
+            animation: wag 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes wag {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(15deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Latar Belakang Lucu -->
+    <div class="bg-decorations">
+        <div class="float-item">🐾</div>
+        <div class="float-item">✨</div>
+        <div class="float-item">🍂</div>
+        <div class="float-item">📷</div>
+    </div>
+
+    <!-- Tombol Kembali -->
+    <nav>
+        <a href="index.html" class="back-link">← Kembali ke Beranda</a>
+    </nav>
+
+    <!-- Header & Deskripsi -->
+    <header>
+        <span class="album-date">"Mau liat koi"</span>
+        <h1>SMB</h1>
+        <p>Klo ini pokoknya abis dari puncak dan gw mau liat koi akhirnya ke SMB deh dan photobooth akhirnya first time gw wkwkwkwk.</p>
+
+        <!-- Tombol Google Drive -->
+        <!-- Ganti atribut href dengan link Google Drive folder yang asli -->
+        <a href="https://drive.google.com/drive/u/0/folders/1MQn92UH1xiAn9Nx49Vj7GjYlymMxNW6g" target="_blank" class="gdrive-btn">
+            <svg class="gdrive-icon" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                <path d="M58.2 78L29.1 78L14.55 52L43.65 52L58.2 78Z" />
+                <path d="M87.3 52L58.2 52L43.65 26L72.75 26L87.3 52Z" />
+                <path d="M14.55 52L0 26L29.1 26L43.65 52L14.55 52Z" />
+            </svg>
+            Buka Album Lengkap di GDrive
+        </a>
+    </header>
+
+    <!-- Galeri Foto (10 Foto) -->
+    <main>
+        <div class="photo-grid">
+            <div class="photo-item"> <img src="SMB/sm1.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm2.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm3.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm4.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm5.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm6.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm7.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm8.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm9.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm10.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm11.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm12.jpg" alt=""></div>
+             <div class="photo-item"> <img src="SMB/sm13.jpg" alt=""></div>
+            <div class="photo-item"> <img src="SMB/sm14.jpg" alt=""></div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026. Bom.
+    </footer>
+
+    <!-- Karakter Kucing Mengintip -->
+    <div class="peeking-cat" title="Meow!">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+            <path class="cat-tail" d="M 80 80 Q 95 60 90 40 Q 85 20 70 30" stroke="var(--accent-color)" stroke-width="8" stroke-linecap="round" fill="none" />
+            <rect x="25" y="80" width="15" height="20" rx="7" fill="var(--accent-color)" />
+            <rect x="60" y="80" width="15" height="20" rx="7" fill="var(--accent-color)" />
+            <path d="M 20 90 C 20 50, 80 50, 80 90" fill="var(--accent-color)" />
+            <polygon points="20,65 25,25 45,52" fill="var(--accent-color)" />
+            <polygon points="26,53 29,35 39,50" fill="var(--surface-color)" />
+            <polygon points="80,65 75,25 55,52" fill="var(--accent-color)" />
+            <polygon points="74,53 71,35 61,50" fill="var(--surface-color)" />
+            <g class="cat-eyes">
+                <circle cx="35" cy="70" r="4.5" fill="#151515" />
+                <circle cx="65" cy="70" r="4.5" fill="#151515" />
+            </g>
+            <polygon points="48,76 52,76 50,80" fill="#151515" />
+        </svg>
+    </div>
+
+</body>
+</html>

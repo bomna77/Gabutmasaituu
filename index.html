@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Gabut Waktu Itu</title>
+    <!-- Font modern dan bersih dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0d0d0d;        /* Hitam pekat untuk latar utama */
+            --surface-color: #151515;   /* Abu-abu sangat gelap untuk kartu */
+            --text-primary: #ededed;    /* Putih pudar agar tidak menyilaukan */
+            --text-secondary: #888888;  /* Abu-abu untuk teks deskripsi */
+            --accent-color: #A67C52;    /* Coklat kopi yang kalem */
+            --border-color: #262626;    /* Garis batas tipis */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            padding: 12vh 20px 8vh;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-family: 'Lora', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            flex: 1; /* Mendorong footer ke bawah */
+            width: 100%;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        /* Mengatur ukuran wadah gambarnya */
+.card-image {
+    width: 100%;
+    height: 100%; /* Mengikuti tinggi card utamanya */
+    overflow: hidden; 
+}
+
+/* KUNCI UTAMA: Mengatur gambar di dalam wadah */
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ini yang bikin foto pas, penuh, dan gak gepeng */
+    object-position: center; /* Fokus potongan ada di tengah */
+}
+
+        /* Kartu kini menggunakan tag <a> agar bisa diklik pindah halaman */
+        .album-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px; /* Sudut membulat yang halus */
+            overflow: hidden;
+            text-decoration: none; /* Menghilangkan garis bawah link */
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Efek hover yang sangat simpel dan elegan */
+        .album-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-color);
+        }
+
+        .card-image {
+            height: 220px;
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-family: 'Lora', serif;
+            font-style: italic;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .card-content h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        /* --- TAMBAHAN ELEMEN LUCU TAPI ELEGAN --- */
+        
+        /* 1. Latar Belakang Melayang (Sangat Transparan) */
+        .bg-decorations {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; /* Agar tidak mengganggu saat di-klik */
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .float-item {
+            position: absolute;
+            bottom: -50px;
+            opacity: 0.05; /* Sangat tipis agar tetap elegan */
+            font-size: 24px;
+            animation: floatUp 20s linear infinite;
+            filter: grayscale(100%) sepia(100%) hue-rotate(330deg); /* Menyesuaikan warna dengan tema coklat */
+        }
+
+        /* Variasi posisi dan kecepatan */
+        .float-item:nth-child(1) { left: 10%; animation-duration: 25s; font-size: 30px; }
+        .float-item:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 5s; }
+        .float-item:nth-child(3) { left: 50%; animation-duration: 28s; animation-delay: 2s; font-size: 40px; }
+        .float-item:nth-child(4) { left: 75%; animation-duration: 22s; animation-delay: 8s; }
+        .float-item:nth-child(5) { left: 90%; animation-duration: 26s; font-size: 20px; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.08; }
+            90% { opacity: 0.08; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 2. Kucing Mengintip di Pojok Kanan Bawah */
+        .peeking-cat {
+            position: fixed;
+            bottom: -20px; /* Sembunyi sedikit ke bawah */
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            z-index: 10;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .peeking-cat:hover {
+            transform: translateY(-20px); /* Kucing mengintip ke atas saat disentuh kursor */
+        }
+
+        .cat-eyes {
+            transform-origin: center;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0%, 95%, 100% { transform: scaleY(1); }
+            97% { transform: scaleY(0.1); } /* Kedipan cepat */
+        }
+
+        .cat-tail {
+            transform-origin: 80% 80%;
+            animation: wag 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes wag {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(15deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Latar Belakang Lucu -->
+    <div class="bg-decorations">
+        <div class="float-item">🐾</div>
+        <div class="float-item">✨</div>
+        <div class="float-item">🐾</div>
+        <div class="float-item">☕</div>
+        <div class="float-item">🐾</div>
+    </div>
+
+    <header>
+        <h1>Waktu Gabut Itu</h1>
+        <p>Yaaa ini cuma buat nyimpen foto biar gak ilang yaaa:>.</p>
+    </header>
+
+    <main>
+        <div class="album-grid">
+            
+            <!-- Kartu 1 (Ganti href dengan nama file halaman baru nanti) -->
+            <a href="hal1.html" class="album-card">
+                <div class="card-image"> <img src="shamella/sh4.jpeg" alt="foto shameela"></div>
+                <div class="card-content">
+                    <div class="card-meta">"semangat mbak!"</div>
+                    <h3>SHAMEELA</h3>
+                    <p>Isinya cuma foto-foto orang ini yang ada di hp gw</p>
+                </div>
+            </a>
+
+            <!-- Kartu 2 -->
+            <a href="hak2.html" class="album-card">
+                <div class="card-image"> <img src="MKG/mkg3.jpeg" alt="foto mkg"></div>
+                <div class="card-content">
+                    <div class="card-meta">KEYCHAIN PERSAHABATAN</div>
+                    <h3>MKG</h3>
+                    <p>Pokoknya ini waktu di MKG dah gw tempel disini.</p>
+                </div>
+            </a>
+
+            <!-- Kartu 3 -->
+            <a href="hal3.html" class="album-card">
+                <div class="card-image"><img src="Puncak/p1.jpg" alt=""></div>
+                <div class="card-content">
+                    <div class="card-meta">"kenapa sih mbak?"</div>
+                    <h3>Puncak</h3>
+                    <p>yang ini dadakan banget realll no fake-fake.</p>
+                </div>
+            </a>
+
+            <!-- Kartu 4 -->
+            <a href="hal4.html" class="album-card">
+                <div class="card-image"><img src="SMB/sm1.jpg" alt=""></div>
+                <div class="card-content">
+                    <div class="card-meta">"mau liat koi"</div>
+                    <h3>SMB</h3>
+                    <p>Klo ini pokoknya abis dari puncak.</p>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026. bom.
+    </footer>
+
+    <!-- Karakter Kucing Mengintip -->
+    <div class="peeking-cat" title="Meow!">
+        <!-- Gambar Vector Kucing menggunakan SVG -->
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+            <!-- Ekor Bergerak -->
+            <path class="cat-tail" d="M 80 80 Q 95 60 90 40 Q 85 20 70 30" stroke="var(--accent-color)" stroke-width="8" stroke-linecap="round" fill="none" />
+            <!-- Cakar (Tangan) -->
+            <rect x="25" y="80" width="15" height="20" rx="7" fill="var(--accent-color)" />
+            <rect x="60" y="80" width="15" height="20" rx="7" fill="var(--accent-color)" />
+            <!-- Kepala -->
+            <path d="M 20 90 C 20 50, 80 50, 80 90" fill="var(--accent-color)" />
+            <!-- Telinga Kiri & Kanan -->
+            <polygon points="20,65 25,25 45,52" fill="var(--accent-color)" />
+            <polygon points="26,53 29,35 39,50" fill="var(--surface-color)" />
+            <polygon points="80,65 75,25 55,52" fill="var(--accent-color)" />
+            <polygon points="74,53 71,35 61,50" fill="var(--surface-color)" />
+            <!-- Mata (Bisa Kedip) -->
+            <g class="cat-eyes">
+                <circle cx="35" cy="70" r="4.5" fill="#151515" />
+                <circle cx="65" cy="70" r="4.5" fill="#151515" />
+            </g>
+            <!-- Hidung -->
+            <polygon points="48,76 52,76 50,80" fill="#151515" />
+        </svg>
+    </div>
+
+</body>
+</html>
